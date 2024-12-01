@@ -7,7 +7,7 @@ machine:lazuli:
     contains:
         - user:bob
     secrets:
-        example: vp%d6wO#0#D2N>tz/dgCA+v4Gf:YG@axQxRh8d9lwje[7njt)oiAwKHsY]w]fek%IzFgK(ze%Anh/-!olRZDnfe4o8gGlsvqE%ofq.{l+Ct0jbgGO0sBwMQ=iEjkmgehySf?U$MqEIByo/dbHxMlrBeJ$pVgbQ{ziuRv3ic]TuwH*IAxLZszwO%nAoJ+[JBv]L4s:tpdyGKUmswq84C5RnmfBx^ef(.d>BWZK[yc$YNpeiVlz8:yyvTg^yBz<&Ls5zU5D3zX!fFVsyo:SE7eG/v.AYed)mk5pIo>v^os-3MDBxiAWhdyPqyed5&d]o[Js6o0ns1uM[A%-+T8bWo{[iCckw>V.MWOIT[uo7mX{IGqIRBRG2g<+1IcOd5[G&@!4q@HKZ(?OA&zznXzDE$Q>
+        example: vp%d6wO#0#D2N>tz/dgCA+v4Gf:YG@axQxRh8d9ld{c{]feM^wvmblrA=Dhlv[7cKq8rq]Dtb]Eh*mL<h.cNRr.k=byJ}/Cvok<bByYq!w{vc*xL6N:r5dSAv]2{wwhmOfstBDkg*jS-rAK2%yG-L4eJ$pVgbQ{ziuR]/w?)p@zzbQjd[@rfw[T*%w&ALhr4{d2r8+IyhD13Sl$FwEl1999x9@cHnKEC@z/oo3D2lXxhGRz?B#q]CBWXbQzFa94CZiB]wO9U}lumoWq3[)beG/paC$-iQydgJGgGlk6hCEX6l#c^3hdnvOoJ0-]y&SMJh!:%9d[J/SmgeT[YiB(m@<UF/qoYhoLS$PU3kae/w%zy#PLk&>VurFSU:SLb-cUCGBUWhc[Od$$B?8rEl0J(G
 user:bob:
     grants:
         - user:friend
