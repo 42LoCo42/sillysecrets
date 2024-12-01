@@ -12,6 +12,6 @@ user:bob:
     grants:
         - user:friend
     secrets:
-        password: vp%d6wO#0#D2N>tz/dgCA+v4Gf:YG@axQxRh8d9lr75-pvPtiYhEYB7CqT8VAAlWfCZq>Cm@q*WvOQ(^mR+)Yy?#TgfLt29gDmx#y&jFMr+M+srD{FSDtb(!hdG^ax<atBt2npsyIldcfNw0$BwcDSeJ$pVgbQ{ziuQgCf?28KBv]Icst:c4qaA].vp%:sgd(B}BtD#&x/F1xsxNB&vrcxQk)*Car=zXuv(59}CSxqjgdB@drDyM2vSLaYlO.T#yIMKSrAAsGD1F{cnEv4kaxQxRh8d9lq!]3LAbZ1Wnj(T6C4=7>yfC)MxF}.csu7HXC%>qann*dSfG0Grl1&K>ABIZMgbTtJABzdHzFA(vwP8u}A4>^9C0!?*qBkTVrX52CCx=]2CqTBGeIeK%x)0JYv[Rb?qE:fSnhkA^h9$g%xl[hBn(mG*mr-(mq=ly/fHFGDC$ype>mxH19qFh<2J^U7IXPKRfP?du]Kh{uKZA:]3(#NCg((3XW{1vVbCnFYLk9EF>G+H6PcM{pvUN^OY[[B^RX/mSD$OW0b-](6UB{gF=4+#=ufOG]HNcP(Vs5+)>8Z8LpenBj)&}(n2
+        password: vp%d6wO#0#D2N>tz/dgCA+v4Gf:YG@aAIQqeOeDFh8N9Gatu$/heCM3fI2[#CR-#Cvr)2)B4OobnM!=hgd#{(sxYAvf>kAzl$yyUxH#uDq8pGBsB9n0wO1E<A=+A1gKqL]njCJ$xN9ftBAg}}oFHd3ltpgCl{T%%q!!o0eJ$pVgbQ{ziuS3Cp?Jp2qCRdAzE(HzhBGD6BUV&%Dqu?df!)M8m}My7Ct@*eAw?/srsiK$x*U^jDu<T4yH.VCr-r{ovqG<-BYQ>AlWzTHg^V4Mf!+zahDss9i0}l3axQxRh8d9lp?aVmpiR1PltyQ!s9my>yI2[In)%wkx?ibWlR}VBn(x}HD1*+#pGx)>yCFQMC$z*(ye4+@qbQ1ygCq)0hGSaZf*YINp!T-ex<&-tfNlC]hbv6ReIeK%CsUn7p^XAjw(&Cgt0>ORwnDB3mnO8so>MyRwhWBRvs060l2n5!B#9ndS]mEj8-7jBf!uEl/O0&x]#pUC7lRSE:ef0l=>)#MZzwqYUBE61p0!fD5a0/c=&TvL3
 user:friend:
-    key: age1fatfxsjpt2gw84fjshdnt90r4qxlt5yjvugt7lqf9ekq5w75p9tq277jlm
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1uAWGQhAEEaLNr1fj1qvNszBcf40exdq/SWq/6iW5W

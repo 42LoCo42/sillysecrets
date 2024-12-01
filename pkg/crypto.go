@@ -6,11 +6,11 @@ import (
 	"log"
 	"os"
 	pathm "path"
-	"strings"
 
 	"filippo.io/age"
 	"github.com/42LoCo42/sillysecrets/internal"
 	"github.com/42LoCo42/z85m"
+	set "github.com/deckarep/golang-set/v2"
 	"github.com/go-faster/errors"
 )
 
@@ -20,7 +20,7 @@ func Encrypt(raw []byte, name string, groups Groups) (string, error) {
 		return "", errors.Wrap(err, "could not collect keys")
 	}
 
-	recp, err := age.ParseRecipients(strings.NewReader(strings.Join(keys.ToSlice(), "\n")))
+	recp, err := ParseRecipients(keys)
 	if err != nil {
 		return "", errors.Wrap(err, "could not parse keys")
 	}
@@ -62,6 +62,21 @@ func Decrypt(enc string, identities []age.Identity) ([]byte, error) {
 	}
 
 	return dec, nil
+}
+
+func ParseRecipients(keys set.Set[string]) ([]age.Recipient, error) {
+	recp := []age.Recipient{}
+
+	for _, k := range keys.ToSlice() {
+		r, err := internal.ParseRecipient(k)
+		if err != nil {
+			return nil, errors.Wrapf(err, "could not parse recipient `%v`", k)
+		}
+
+		recp = append(recp, r)
+	}
+
+	return recp, nil
 }
 
 func LoadIdentities(idPaths []string) []age.Identity {
