@@ -6,7 +6,7 @@
           pname = "sillysecrets";
           version = "0";
           src = ./.;
-          vendorHash = null;
+          vendorHash = "sha256-dMziQWdGXLCQN9ot8Pu2vuZ9gtVydDBx0QmlMfhNV+4=";
 
           CGO_ENABLED = "0";
           ldflags = [ "-s" "-w" ];
@@ -16,7 +16,11 @@
 
         devShells.default = pkgs.mkShell {
           inputsFrom = [ packages.default ];
-          packages = with pkgs; [ air ];
+          packages = with pkgs; [
+            age
+            air
+            ssh-to-age
+          ];
         };
       });
 }

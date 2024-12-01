@@ -1,0 +1,12 @@
+admin:alice:
+
+machine:lazuli:
+  grants:
+    - admin:alice
+
+user:bob:
+  grants:
+    - user:friend
+    - machine:lazuli
+
+user:friend:

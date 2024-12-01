@@ -1,0 +1,20 @@
+admin:alice:
+  key: age17qe05dgsnsmdqzq98knvwxj9ras6yv0j404wruvlvdk2m536rvvs336lp3
+  contains:
+    - machine:lazuli
+
+machine:lazuli:
+  key: age1n04mf9wsmkekz7mqjul50fd54sfsgk3ecaw9lnfn0xxugsmu3u3swyq4k3
+  secrets:
+    example: TODO
+  contains:
+    - user:bob
+
+user:bob:
+  secrets:
+    password: TODO
+  grants:
+    - user:friend
+
+user:friend:
+  key: age1fatfxsjpt2gw84fjshdnt90r4qxlt5yjvugt7lqf9ekq5w75p9tq277jlm

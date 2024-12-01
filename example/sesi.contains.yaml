@@ -1,0 +1,13 @@
+admin:alice:
+  contains:
+    - machine:lazuli
+
+machine:lazuli:
+  contains:
+    - user:bob
+
+user:bob:
+
+user:friend:
+  contains:
+    - user:bob
