@@ -3,15 +3,18 @@ package sillysecrets_test
 import (
 	"crypto/rand"
 	"log"
+	"path"
 	"reflect"
 	"testing"
 
-	"github.com/42LoCo42/sillysecrets"
+	"github.com/42LoCo42/sillysecrets/pkg"
 	set "github.com/deckarep/golang-set/v2"
 )
 
+const DIR = "../example"
+
 func Test(t *testing.T) {
-	groups, err := sillysecrets.Load("example/sesi.yaml")
+	groups, err := sillysecrets.Load(path.Join(DIR, "sesi.yaml"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -124,7 +127,7 @@ func Test(t *testing.T) {
 
 	log.Print("Crypto")
 
-	identities := sillysecrets.LoadIdentities([]string{"example"})
+	identities := sillysecrets.LoadIdentities([]string{DIR})
 	log.Print("  Identities found:")
 	for _, i := range identities {
 		log.Print("    ", i)
