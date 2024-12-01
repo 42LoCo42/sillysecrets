@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"filippo.io/age"
+	"github.com/42LoCo42/sillysecrets/internal"
 	"github.com/42LoCo42/z85m"
 	"github.com/go-faster/errors"
 )
@@ -90,14 +91,12 @@ func LoadIdentities(idPaths []string) []age.Identity {
 				}
 				defer file.Close()
 
-				subids, err := age.ParseIdentities(file)
+				subids, err := internal.ParseIdentitiesFile(path)
 				if err != nil {
 					return errors.Wrapf(err, "could not parse identities in %v", path)
 				}
 
-				for _, i := range subids {
-					ids = append(ids, i)
-				}
+				ids = append(ids, subids...)
 			}
 
 			return nil
