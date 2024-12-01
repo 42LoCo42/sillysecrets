@@ -103,19 +103,19 @@ func Test(t *testing.T) {
 
 		want := map[string]set.Set[string]{
 			"admin:alice": set.NewSet(
-				groups["admin:alice"].Key,
+				string(groups["admin:alice"].Key),
 			),
 			"machine:lazuli": set.NewSet(
-				groups["admin:alice"].Key,
-				groups["machine:lazuli"].Key,
+				string(groups["admin:alice"].Key),
+				string(groups["machine:lazuli"].Key),
 			),
 			"user:bob": set.NewSet(
-				groups["admin:alice"].Key,
-				groups["machine:lazuli"].Key,
-				groups["user:friend"].Key,
+				string(groups["admin:alice"].Key),
+				string(groups["machine:lazuli"].Key),
+				string(groups["user:friend"].Key),
 			),
 			"user:friend": set.NewSet(
-				groups["user:friend"].Key,
+				string(groups["user:friend"].Key),
 			),
 		}[n]
 

@@ -64,6 +64,6 @@ func CollectKeys(name string, groups Groups) (set.Set[string], error) {
 			return g.Grants.ToSlice()
 		},
 		func(n string, g Group, r set.Set[string]) {
-			r.Add(g.Key)
+			r.Add(string(g.Key))
 		})
 }

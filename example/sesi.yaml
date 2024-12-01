@@ -1,17 +1,17 @@
 admin:alice:
-    key: age17qe05dgsnsmdqzq98knvwxj9ras6yv0j404wruvlvdk2m536rvvs336lp3
+    key: "age17qe05dgsnsmdqzq98knvwxj9ras6yv0j404wruvlvdk2m536rvvs336lp3"
     contains:
-        - machine:lazuli
+        - "machine:lazuli"
 machine:lazuli:
-    key: age1n04mf9wsmkekz7mqjul50fd54sfsgk3ecaw9lnfn0xxugsmu3u3swyq4k3
+    key: "age1n04mf9wsmkekz7mqjul50fd54sfsgk3ecaw9lnfn0xxugsmu3u3swyq4k3"
     contains:
-        - user:bob
+        - "user:bob"
     secrets:
-        example: vp%d6wO#0#D2N>tz/dgCA+v4Gf:YG@axQxRh8d9ld{c{]feM^wvmblrA=Dhlv[7cKq8rq]Dtb]Eh*mL<h.cNRr.k=byJ}/Cvok<bByYq!w{vc*xL6N:r5dSAv]2{wwhmOfstBDkg*jS-rAK2%yG-L4eJ$pVgbQ{ziuR]/w?)p@zzbQjd[@rfw[T*%w&ALhr4{d2r8+IyhD13Sl$FwEl1999x9@cHnKEC@z/oo3D2lXxhGRz?B#q]CBWXbQzFa94CZiB]wO9U}lumoWq3[)beG/paC$-iQydgJGgGlk6hCEX6l#c^3hdnvOoJ0-]y&SMJh!:%9d[J/SmgeT[YiB(m@<UF/qoYhoLS$PU3kae/w%zy#PLk&>VurFSU:SLb-cUCGBUWhc[Od$$B?8rEl0J(G
+        example: "vp%d6wO#0#D2N>tz/dgCA+v4Gf:YG@axQxRh8d9ld{c{]feM^wvmblrA=Dhlv[7cKq8rq]Dtb]Eh*mL<h.cNRr.k=byJ}/Cvok<bByYq!w{vc*xL6N:r5dSAv]2{wwhmOfstBDkg*jS-rAK2%yG-L4eJ$pVgbQ{ziuR]/w?)p@zzbQjd[@rfw[T*%w&ALhr4{d2r8+IyhD13Sl$FwEl1999x9@cHnKEC@z/oo3D2lXxhGRz?B#q]CBWXbQzFa94CZiB]wO9U}lumoWq3[)beG/paC$-iQydgJGgGlk6hCEX6l#c^3hdnvOoJ0-]y&SMJh!:%9d[J/SmgeT[YiB(m@<UF/qoYhoLS$PU3kae/w%zy#PLk&>VurFSU:SLb-cUCGBUWhc[Od$$B?8rEl0J(G"
 user:bob:
     grants:
-        - user:friend
+        - "user:friend"
     secrets:
-        password: vp%d6wO#0#D2N>tz/dgCA+v4Gf:YG@aAIQqeOeDFh8N9Gatu$/heCM3fI2[#CR-#Cvr)2)B4OobnM!=hgd#{(sxYAvf>kAzl$yyUxH#uDq8pGBsB9n0wO1E<A=+A1gKqL]njCJ$xN9ftBAg}}oFHd3ltpgCl{T%%q!!o0eJ$pVgbQ{ziuS3Cp?Jp2qCRdAzE(HzhBGD6BUV&%Dqu?df!)M8m}My7Ct@*eAw?/srsiK$x*U^jDu<T4yH.VCr-r{ovqG<-BYQ>AlWzTHg^V4Mf!+zahDss9i0}l3axQxRh8d9lp?aVmpiR1PltyQ!s9my>yI2[In)%wkx?ibWlR}VBn(x}HD1*+#pGx)>yCFQMC$z*(ye4+@qbQ1ygCq)0hGSaZf*YINp!T-ex<&-tfNlC]hbv6ReIeK%CsUn7p^XAjw(&Cgt0>ORwnDB3mnO8so>MyRwhWBRvs060l2n5!B#9ndS]mEj8-7jBf!uEl/O0&x]#pUC7lRSE:ef0l=>)#MZzwqYUBE61p0!fD5a0/c=&TvL3
+        password: "vp%d6wO#0#D2N>tz/dgCA+v4Gf:YG@axQxRh8d9lBA69TiBV>]hAalvoe7l^Cw7.{Cv<rWD2=>WyIm=xCvsPAhy?djD1?sbygh6vk$9q0z^)lonkrk{wM&[[l$58#mSgN-lPn<[AcsYEi4Eu&r8dGweJ$p#B7^dpwhl21f/Zv}t2Nmzxcp$Hfe2ZLs8Q61flRtYz+:?slW9fRqfb-jA8}jfC@fePw]6j#iwL&7yyiydmObl[v@=c@s#oXOrxj@1g/VB)x?i7#ygoL7d@[MBfK^%{s2I{bgZU/#axQxRh8d9lsAXErp/]C-wLl><Ctq<^ols=.lo3X%p^]CFl3v9+lOQw#hcjx(iyuTJra/3Jib?kRAZAw<n{j@svk7Lnl1L4XfH]b^hG8xnmkdtTA^gS2hblareIeK%x?qFZwLK$3iAx0cCv$]vqbHgEpG&33n[G>IssV9{p^WlWoM&%5qAd!^/*hQgtUZ&dZ+S!JD$^ugWm/!Hw>jZA<+4j1.b(}wYbV}cPX[ijsnk/7Aa)9.5cA1p3"
 user:friend:
-    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1uAWGQhAEEaLNr1fj1qvNszBcf40exdq/SWq/6iW5W
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1uAWGQhAEEaLNr1fj1qvNszBcf40exdq/SWq/6iW5W"

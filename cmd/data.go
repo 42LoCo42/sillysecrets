@@ -76,7 +76,7 @@ func loadSecret(args []string) LoadedSecret {
 	}
 
 	if s.Group.Secrets == nil {
-		s.Group.Secrets = map[string]string{}
+		s.Group.Secrets = map[string]sillysecrets.Quoted{}
 	}
 
 	enc, ok := s.Group.Secrets[s.SecretName]

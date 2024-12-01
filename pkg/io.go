@@ -19,8 +19,8 @@ func Load(path string) (groups Groups, err error) {
 	}
 
 	for n, g := range groups {
-		g.Contains = set.NewSet(g.ContainsRaw...)
-		g.Grants = set.NewSet(g.GrantsRaw...)
+		g.Contains = set.NewSet(Unquote(g.ContainsRaw)...)
+		g.Grants = set.NewSet(Unquote(g.GrantsRaw)...)
 		groups[n] = g
 	}
 

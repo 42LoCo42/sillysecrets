@@ -14,38 +14,38 @@ import (
 	"github.com/go-faster/errors"
 )
 
-func Encrypt(raw []byte, name string, groups Groups) (string, error) {
+func Encrypt(raw []byte, name string, groups Groups) (s Quoted, err error) {
 	keys, err := CollectKeys(name, groups)
 	if err != nil {
-		return "", errors.Wrap(err, "could not collect keys")
+		return s, errors.Wrap(err, "could not collect keys")
 	}
 
 	recp, err := ParseRecipients(keys)
 	if err != nil {
-		return "", errors.Wrap(err, "could not parse keys")
+		return s, errors.Wrap(err, "could not parse keys")
 	}
 
 	encb := bytes.Buffer{}
 	encw, err := age.Encrypt(&encb, recp...)
 	if err != nil {
-		return "", errors.Wrap(err, "could not prepare encryption")
+		return s, errors.Wrap(err, "could not prepare encryption")
 	}
 
 	if _, err := encw.Write(raw); err != nil {
-		return "", errors.Wrap(err, "could not encrypt data")
+		return s, errors.Wrap(err, "could not encrypt data")
 	}
 
 	encw.Close()
 
 	enc, err := z85m.Encode(encb.Bytes())
 	if err != nil {
-		return "", errors.Wrap(err, "could not encode data")
+		return s, errors.Wrap(err, "could not encode data")
 	}
 
-	return string(enc), nil
+	return Quoted(enc), nil
 }
 
-func Decrypt(enc string, identities []age.Identity) ([]byte, error) {
+func Decrypt(enc Quoted, identities []age.Identity) ([]byte, error) {
 	encb, err := z85m.Decode([]byte(enc))
 	if err != nil {
 		return nil, errors.Wrap(err, "could not decode data")
