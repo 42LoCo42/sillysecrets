@@ -13,16 +13,23 @@
         };
       in
       rec {
-        packages.default = pkgs.buildGoModule {
+        packages.default = pkgs.buildGoModule rec {
           pname = "sillysecrets";
           version = "0";
           src = ./.;
-          vendorHash = "sha256-OruMcvH46u7Ms62o8w2cH4ptqoLIrpgmg2ER93yZrd4=";
+          vendorHash = "sha256-BdPKXOwWPGQGCvdXVKC7kax86UtUmLjD9wco8Gay2pE=";
 
           preBuild = pkgs.lib.getExe setup-internal;
 
           CGO_ENABLED = "0";
           ldflags = [ "-s" "-w" ];
+
+          nativeBuildInputs = with pkgs; [ makeBinaryWrapper ];
+          postInstall = ''
+            mv $out/bin/{${pname},sesi}
+            wrapProgram $out/bin/sesi \
+              --prefix PATH : ${pkgs.moreutils}/bin
+          '';
 
           meta.mainProgram = "sesi";
         };
@@ -32,7 +39,7 @@
           packages = with pkgs; [
             age
             age-plugin-fido2-hmac
-            air
+            cobra-cli
             delve
             setup-internal
             ssh-to-age

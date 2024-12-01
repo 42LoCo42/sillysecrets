@@ -1,20 +1,17 @@
 admin:alice:
-  key: age17qe05dgsnsmdqzq98knvwxj9ras6yv0j404wruvlvdk2m536rvvs336lp3
-  contains:
-    - machine:lazuli
-
+    key: age17qe05dgsnsmdqzq98knvwxj9ras6yv0j404wruvlvdk2m536rvvs336lp3
+    contains:
+        - machine:lazuli
 machine:lazuli:
-  key: age1n04mf9wsmkekz7mqjul50fd54sfsgk3ecaw9lnfn0xxugsmu3u3swyq4k3
-  secrets:
-    example: TODO
-  contains:
-    - user:bob
-
+    key: age1n04mf9wsmkekz7mqjul50fd54sfsgk3ecaw9lnfn0xxugsmu3u3swyq4k3
+    contains:
+        - user:bob
+    secrets:
+        example: vp%d6wO#0#D2N>tz/dgCA+v4Gf:YG@axQxRh8d9lwje[7njt)oiAwKHsY]w]fek%IzFgK(ze%Anh/-!olRZDnfe4o8gGlsvqE%ofq.{l+Ct0jbgGO0sBwMQ=iEjkmgehySf?U$MqEIByo/dbHxMlrBeJ$pVgbQ{ziuRv3ic]TuwH*IAxLZszwO%nAoJ+[JBv]L4s:tpdyGKUmswq84C5RnmfBx^ef(.d>BWZK[yc$YNpeiVlz8:yyvTg^yBz<&Ls5zU5D3zX!fFVsyo:SE7eG/v.AYed)mk5pIo>v^os-3MDBxiAWhdyPqyed5&d]o[Js6o0ns1uM[A%-+T8bWo{[iCckw>V.MWOIT[uo7mX{IGqIRBRG2g<+1IcOd5[G&@!4q@HKZ(?OA&zznXzDE$Q>
 user:bob:
-  secrets:
-    password: TODO
-  grants:
-    - user:friend
-
+    grants:
+        - user:friend
+    secrets:
+        password: vp%d6wO#0#D2N>tz/dgCA+v4Gf:YG@axQxRh8d9lr75-pvPtiYhEYB7CqT8VAAlWfCZq>Cm@q*WvOQ(^mR+)Yy?#TgfLt29gDmx#y&jFMr+M+srD{FSDtb(!hdG^ax<atBt2npsyIldcfNw0$BwcDSeJ$pVgbQ{ziuQgCf?28KBv]Icst:c4qaA].vp%:sgd(B}BtD#&x/F1xsxNB&vrcxQk)*Car=zXuv(59}CSxqjgdB@drDyM2vSLaYlO.T#yIMKSrAAsGD1F{cnEv4kaxQxRh8d9lq!]3LAbZ1Wnj(T6C4=7>yfC)MxF}.csu7HXC%>qann*dSfG0Grl1&K>ABIZMgbTtJABzdHzFA(vwP8u}A4>^9C0!?*qBkTVrX52CCx=]2CqTBGeIeK%x)0JYv[Rb?qE:fSnhkA^h9$g%xl[hBn(mG*mr-(mq=ly/fHFGDC$ype>mxH19qFh<2J^U7IXPKRfP?du]Kh{uKZA:]3(#NCg((3XW{1vVbCnFYLk9EF>G+H6PcM{pvUN^OY[[B^RX/mSD$OW0b-](6UB{gF=4+#=ufOG]HNcP(Vs5+)>8Z8LpenBj)&}(n2
 user:friend:
-  key: age1fatfxsjpt2gw84fjshdnt90r4qxlt5yjvugt7lqf9ekq5w75p9tq277jlm
+    key: age1fatfxsjpt2gw84fjshdnt90r4qxlt5yjvugt7lqf9ekq5w75p9tq277jlm
