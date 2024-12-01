@@ -1,7 +1,9 @@
 package sillysecrets_test
 
 import (
+	"crypto/rand"
 	"log"
+	"reflect"
 	"testing"
 
 	"github.com/42LoCo42/sillysecrets"
@@ -117,6 +119,35 @@ func Test(t *testing.T) {
 		log.Printf("  %v: have %v, want %v", n, have, want)
 		if !have.Equal(want) {
 			t.Fatal(have, want)
+		}
+	}
+
+	log.Print("Crypto")
+
+	identities := sillysecrets.LoadIdentities([]string{"example"})
+	log.Print("  Identities found:")
+	for _, i := range identities {
+		log.Print("    ", i)
+	}
+
+	for n := range groups {
+		raw := make([]byte, 128)
+		if _, err := rand.Read(raw); err != nil {
+			t.Fatal(err)
+		}
+
+		enc, err := sillysecrets.Encrypt(raw, n, groups)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		dec, err := sillysecrets.Decrypt(enc, identities)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if !reflect.DeepEqual(raw, dec) {
+			t.Fatal(enc, dec)
 		}
 	}
 }

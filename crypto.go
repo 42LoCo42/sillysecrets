@@ -1,0 +1,114 @@
+package sillysecrets
+
+import (
+	"bytes"
+	"io"
+	"log"
+	"os"
+	pathm "path"
+	"strings"
+
+	"filippo.io/age"
+	"github.com/42LoCo42/z85m"
+	"github.com/go-faster/errors"
+)
+
+func Encrypt(raw []byte, name string, groups Groups) (string, error) {
+	keys, err := CollectKeys(name, groups)
+	if err != nil {
+		return "", errors.Wrap(err, "could not collect keys")
+	}
+
+	recp, err := age.ParseRecipients(strings.NewReader(strings.Join(keys.ToSlice(), "\n")))
+	if err != nil {
+		return "", errors.Wrap(err, "could not parse keys")
+	}
+
+	encb := bytes.Buffer{}
+	encw, err := age.Encrypt(&encb, recp...)
+	if err != nil {
+		return "", errors.Wrap(err, "could not prepare encryption")
+	}
+
+	if _, err := encw.Write(raw); err != nil {
+		return "", errors.Wrap(err, "could not encrypt data")
+	}
+
+	encw.Close()
+
+	enc, err := z85m.Encode(encb.Bytes())
+	if err != nil {
+		return "", errors.Wrap(err, "could not encode data")
+	}
+
+	return string(enc), nil
+}
+
+func Decrypt(enc string, identities []age.Identity) ([]byte, error) {
+	encb, err := z85m.Decode([]byte(enc))
+	if err != nil {
+		return nil, errors.Wrap(err, "could not decode data")
+	}
+
+	encr, err := age.Decrypt(bytes.NewReader(encb), identities...)
+	if err != nil {
+		return nil, errors.Wrap(err, "could not decrypt data")
+	}
+
+	dec, err := io.ReadAll(encr)
+	if err != nil {
+		return nil, errors.Wrap(err, "could not read decrypted data")
+	}
+
+	return dec, nil
+}
+
+func LoadIdentities(idPaths []string) []age.Identity {
+	ids := []age.Identity{}
+
+	var helper func(path string)
+	helper = func(path string) {
+		if err := func() error {
+			info, err := os.Stat(path)
+			if err != nil {
+				return errors.Wrap(err, "could not get file information")
+			}
+
+			if info.IsDir() {
+				entries, err := os.ReadDir(path)
+				if err != nil {
+					return errors.Wrap(err, "could not read directory")
+				}
+
+				for _, entry := range entries {
+					helper(pathm.Join(path, entry.Name()))
+				}
+			} else {
+				file, err := os.Open(path)
+				if err != nil {
+					return errors.Wrap(err, "could not open file")
+				}
+				defer file.Close()
+
+				subids, err := age.ParseIdentities(file)
+				if err != nil {
+					return errors.Wrapf(err, "could not parse identities in %v", path)
+				}
+
+				for _, i := range subids {
+					ids = append(ids, i)
+				}
+			}
+
+			return nil
+		}(); err != nil {
+			log.Printf("WARN: %v", err)
+		}
+	}
+
+	for _, path := range idPaths {
+		helper(path)
+	}
+
+	return ids
+}

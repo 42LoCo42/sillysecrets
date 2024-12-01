@@ -14,35 +14,36 @@ func Collect(
 	add func(n string, g Group, r set.Set[string]),
 ) (set.Set[string], error) {
 	visited := set.NewSet[string]()
+	results := set.NewSet[string]()
 
-	var helper func(name string) (set.Set[string], error)
-	helper = func(name string) (set.Set[string], error) {
+	var helper func(name string) error
+	helper = func(name string) error {
 		if visited.ContainsOne(name) {
-			return nil, nil
+			return nil
 		}
 
 		group, ok := groups[name]
 		if !ok {
-			return nil, errors.Errorf("group %v not found", name)
+			return errors.Errorf("group %v not found", name)
 		}
 
 		visited.Add(name)
-		results := set.NewSet[string]()
 
 		for _, n := range get(group) {
-			subresults, err := helper(n)
-			if err != nil {
-				return nil, err
+			if err := helper(n); err != nil {
+				return errors.Wrap(err, "could not collect subresults")
 			}
-
-			results = results.Union(subresults)
 		}
 
 		add(name, group, results)
 		results.Remove("")
-		return results, nil
+		return nil
 	}
-	return helper(name)
+
+	if err := helper(name); err != nil {
+		return nil, err
+	}
+	return results, nil
 }
 
 func CollectSecrets(name string, groups Groups) (set.Set[string], error) {

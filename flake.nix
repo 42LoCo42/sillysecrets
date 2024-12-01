@@ -6,7 +6,7 @@
           pname = "sillysecrets";
           version = "0";
           src = ./.;
-          vendorHash = "sha256-dMziQWdGXLCQN9ot8Pu2vuZ9gtVydDBx0QmlMfhNV+4=";
+          vendorHash = "sha256-pT+b6Jtpu9glbJrHRfvPdbMNikqphuy69DxxrnJwIFY=";
 
           CGO_ENABLED = "0";
           ldflags = [ "-s" "-w" ];
@@ -19,6 +19,7 @@
           packages = with pkgs; [
             age
             air
+            delve
             ssh-to-age
           ];
         };
