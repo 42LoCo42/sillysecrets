@@ -15,6 +15,7 @@ var editCmd = &cobra.Command{
 	Use:   "edit",
 	Short: "Edit the secret specified by <group>.<secret>",
 
+	Args:              cobra.ExactArgs(1),
 	ValidArgsFunction: validSecretArgsFunction,
 
 	Run: func(_ *cobra.Command, args []string) {

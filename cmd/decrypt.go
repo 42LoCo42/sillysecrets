@@ -11,6 +11,7 @@ var decryptCmd = &cobra.Command{
 	Use:   "decrypt",
 	Short: "Decrypt the secret specified by <group>.<secret>",
 
+	Args:              cobra.ExactArgs(1),
 	ValidArgsFunction: validSecretArgsFunction,
 
 	Run: func(_ *cobra.Command, args []string) {

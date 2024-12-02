@@ -49,12 +49,12 @@ type LoadedSecret struct {
 	RawName    string
 	GroupName  string
 	SecretName string
-	Group      sillysecrets.Group
 	Value      []byte
 }
 
 func loadSecret(name string) (s LoadedSecret, err error) {
 	s.RawName = name
+	s.Value = []byte{}
 
 	parts := strings.Split(s.RawName, ".")
 	if len(parts) != 2 {
@@ -71,18 +71,16 @@ func loadSecret(name string) (s LoadedSecret, err error) {
 			s.RawName)
 	}
 
-	var ok bool
-	s.Group, ok = groups()[s.GroupName]
+	group, ok := groups()[s.GroupName]
 	if !ok {
 		return s, errors.Errorf("group %v not found", s.GroupName)
 	}
 
-	if s.Group.Secrets == nil {
-		s.Group.Secrets = map[string]sillysecrets.Quoted{}
+	if group.Secrets == nil {
+		group.Secrets = map[string]sillysecrets.Quoted{}
 	}
 
-	enc, ok := s.Group.Secrets[s.SecretName]
-	s.Value = []byte{}
+	enc, ok := group.Secrets[s.SecretName]
 	if ok {
 		var err error
 		s.Value, err = sillysecrets.Decrypt(enc, ids())
@@ -100,7 +98,18 @@ func saveSecret(s LoadedSecret) error {
 		return errors.Wrap(err, "could not encrypt secret")
 	}
 
-	_groups[s.GroupName].Secrets[s.SecretName] = enc
+	group, ok := groups()[s.GroupName]
+	if !ok {
+		return errors.Errorf("group %v not found", s.GroupName)
+	}
+
+	if group.Secrets == nil {
+		group.Secrets = map[string]sillysecrets.Quoted{}
+	}
+
+	group.Secrets[s.SecretName] = enc
+	_groups[s.GroupName] = group
+
 	if err := sillysecrets.Save(file, groups()); err != nil {
 		return errors.Wrap(err, "could not save groups")
 	}

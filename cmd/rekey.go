@@ -10,6 +10,7 @@ var rekeyCmd = &cobra.Command{
 	Use:   "rekey",
 	Short: "Try to rekey all secrets",
 
+	Args: cobra.NoArgs,
 	ValidArgsFunction: func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 		return nil, cobra.ShellCompDirectiveError
 	},
