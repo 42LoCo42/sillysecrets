@@ -24,11 +24,21 @@
           CGO_ENABLED = "0";
           ldflags = [ "-s" "-w" ];
 
-          nativeBuildInputs = with pkgs; [ makeBinaryWrapper ];
+          nativeBuildInputs = with pkgs; [
+            installShellFiles
+            makeBinaryWrapper
+          ];
+
           postInstall = ''
             mv $out/bin/{${pname},sesi}
+
             wrapProgram $out/bin/sesi \
               --prefix PATH : ${pkgs.moreutils}/bin
+
+            for i in bash fish zsh; do
+              $out/bin/sesi completion $i > sesi.$i
+              installShellCompletion sesi.$i
+            done
           '';
 
           meta.mainProgram = "sesi";
