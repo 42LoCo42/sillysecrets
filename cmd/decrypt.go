@@ -14,7 +14,10 @@ var decryptCmd = &cobra.Command{
 	ValidArgsFunction: validSecretArgsFunction,
 
 	Run: func(_ *cobra.Command, args []string) {
-		s := loadSecret(args)
+		s, err := loadSecret(args[0])
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		if len(s.Value) == 0 {
 			log.Fatalf("secret %v is not defined", s.RawName)

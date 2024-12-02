@@ -7,11 +7,11 @@ machine:lazuli:
     contains:
         - "user:bob"
     secrets:
-        example: "vp%d6wO#0#D2N>tz/dgCA+v4Gf:YG@axQxRh8d9ld{c{]feM^wvmblrA=Dhlv[7cKq8rq]Dtb]Eh*mL<h.cNRr.k=byJ}/Cvok<bByYq!w{vc*xL6N:r5dSAv]2{wwhmOfstBDkg*jS-rAK2%yG-L4eJ$pVgbQ{ziuR]/w?)p@zzbQjd[@rfw[T*%w&ALhr4{d2r8+IyhD13Sl$FwEl1999x9@cHnKEC@z/oo3D2lXxhGRz?B#q]CBWXbQzFa94CZiB]wO9U}lumoWq3[)beG/paC$-iQydgJGgGlk6hCEX6l#c^3hdnvOoJ0-]y&SMJh!:%9d[J/SmgeT[YiB(m@<UF/qoYhoLS$PU3kae/w%zy#PLk&>VurFSU:SLb-cUCGBUWhc[Od$$B?8rEl0J(G"
+        example: "vp%d6wO#0#D2N>tz/dgCA+v4Gf:YG@axQxRh8d9llu>j]qCgh8r-SZRpGfh*A5/*Fm[4ievLqXAphaxRCSfRYCr5OWx&]0Pd[SJnwP.S.vpS4/f(eWky*?MEDqOGICZj4Cge&d2swQ@4ydx%molsqzeJ$pVgbQ{ziuSD^s5R4%f/9Vmo!!U0i6*kJrb=z*d{kqLwO(B5yG+E=B7GUOszY])nEx0zlWgn5x(!CFyhM^=vOZ3of?TCQw&hO^lt5=1C4iyOrbu(4y/B?Ak)/g}eG!7]m0QLin[&GUzbT[MlRo0!xjBN<CsV^TvkG&dqfkh}z8a%UBZ[iArsje2aCEGg>Hz.>[>HD<8{r}7p29{MYc-POPxl3v:HoM/ygbivHi=a3ZlM9GlMv{RfiLK?y!O=b"
 user:bob:
     grants:
         - "user:friend"
     secrets:
-        password: "vp%d6wO#0#D2N>tz/dgCA+v4Gf:YG@axQxRh8d9lBA69TiBV>]hAalvoe7l^Cw7.{Cv<rWD2=>WyIm=xCvsPAhy?djD1?sbygh6vk$9q0z^)lonkrk{wM&[[l$58#mSgN-lPn<[AcsYEi4Eu&r8dGweJ$p#B7^dpwhl21f/Zv}t2Nmzxcp$Hfe2ZLs8Q61flRtYz+:?slW9fRqfb-jA8}jfC@fePw]6j#iwL&7yyiydmObl[v@=c@s#oXOrxj@1g/VB)x?i7#ygoL7d@[MBfK^%{s2I{bgZU/#axQxRh8d9lsAXErp/]C-wLl><Ctq<^ols=.lo3X%p^]CFl3v9+lOQw#hcjx(iyuTJra/3Jib?kRAZAw<n{j@svk7Lnl1L4XfH]b^hG8xnmkdtTA^gS2hblareIeK%x?qFZwLK$3iAx0cCv$]vqbHgEpG&33n[G>IssV9{p^WlWoM&%5qAd!^/*hQgtUZ&dZ+S!JD$^ugWm/!Hw>jZA<+4j1.b(}wYbV}cPX[ijsnk/7Aa)9.5cA1p3"
+        password: "vp%d6wO#0#D2N>tz/dgCA+v4Gf:YG@aAIQqeOeDFh8N9GaAgH.g^L:%x&nFvlqZYZl$Yw0z9?h{wkWC/loc/1zB!nDyfazpixe%vmP-IEt53[wAx3G/whd1Il]ET]gh{/ds$$7!vR]1zmPAnxwnVxRd}iT8mo0X&CwRKheJ$pVgbQ{ziuR{WyGL3@wl9+Ds5IF0vOx=?vMwvwl[@aJz7/Qlz^>Fhm@.ZeBxAGGx9{TTCV3$5t19g9iz8>TA5yM{x&XhVzEURdszzO[rX#Hsd[0uXwO<qomg7RgaxQxRh8d9lpFL?NC@X]tgfMOPxE^{WqGM+wx&v=yzG6]7s9b%cCqI9}B9R?6yF!ZKxIJ1@szH(gzbAbYl2wA3Cv$X.k#pcahe+uGy^-hXAX}/Hgi$DuB3U0SeIeK%yeV(WwLm8ZvOQVvm>^$UCt-iHgI?5AfK)Z$qEI)Xi5:#It6BEmlnq4slU[76zAigyYihL6vDh8f&2Og[57tq[m7Xl5+ZiGn?W>q1y+xcxLQ+O+LK<9$uaQdh@DV(Iv9gpF--%iSaT5p}BVHIUYH::+cnd*oc4&iOoaYZP&Q<3IiugTS6tlST?@#J7):qdr2"
 user:friend:
     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1uAWGQhAEEaLNr1fj1qvNszBcf40exdq/SWq/6iW5W"

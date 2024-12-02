@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"log"
 	"strings"
 
 	"filippo.io/age"
@@ -54,25 +53,28 @@ type LoadedSecret struct {
 	Value      []byte
 }
 
-func loadSecret(args []string) LoadedSecret {
-	s := LoadedSecret{}
-	s.RawName = args[0]
+func loadSecret(name string) (s LoadedSecret, err error) {
+	s.RawName = name
 
 	parts := strings.Split(s.RawName, ".")
 	if len(parts) != 2 {
-		log.Fatalf("invalid secret %v: must be in <group>.<secret> format", s.RawName)
+		return s, errors.Errorf(
+			"invalid secret %v: must be in <group>.<secret> format",
+			s.RawName)
 	}
 
 	s.GroupName = strings.TrimSpace(parts[0])
 	s.SecretName = strings.TrimSpace(parts[1])
 	if s.GroupName == "" || s.SecretName == "" {
-		log.Fatalf("invalid secret %v: must be in <group>.<secret> format", s.RawName)
+		return s, errors.Errorf(
+			"invalid secret %v: must be in <group>.<secret> format",
+			s.RawName)
 	}
 
 	var ok bool
 	s.Group, ok = groups()[s.GroupName]
 	if !ok {
-		log.Fatalf("group %v not found", s.GroupName)
+		return s, errors.Errorf("group %v not found", s.GroupName)
 	}
 
 	if s.Group.Secrets == nil {
@@ -85,9 +87,23 @@ func loadSecret(args []string) LoadedSecret {
 		var err error
 		s.Value, err = sillysecrets.Decrypt(enc, ids())
 		if err != nil {
-			log.Fatal(errors.Wrap(err, "could not decrypt data"))
+			return s, errors.Wrap(err, "could not decrypt data")
 		}
 	}
 
-	return s
+	return s, nil
+}
+
+func saveSecret(s LoadedSecret) error {
+	enc, err := sillysecrets.Encrypt(s.Value, s.GroupName, groups())
+	if err != nil {
+		return errors.Wrap(err, "could not encrypt data")
+	}
+
+	_groups[s.GroupName].Secrets[s.SecretName] = enc
+	if err := sillysecrets.Save(file, groups()); err != nil {
+		return errors.Wrap(err, "could not save groups")
+	}
+
+	return nil
 }

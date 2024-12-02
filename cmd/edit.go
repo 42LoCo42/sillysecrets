@@ -6,7 +6,6 @@ import (
 	"os"
 	"os/exec"
 
-	sillysecrets "github.com/42LoCo42/sillysecrets/pkg"
 	"github.com/go-faster/errors"
 	"github.com/spf13/cobra"
 )
@@ -19,7 +18,10 @@ var editCmd = &cobra.Command{
 	ValidArgsFunction: validSecretArgsFunction,
 
 	Run: func(_ *cobra.Command, args []string) {
-		s := loadSecret(args)
+		s, err := loadSecret(args[0])
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		cmd := exec.Command("vipe")
 		new := bytes.Buffer{}
@@ -31,16 +33,9 @@ var editCmd = &cobra.Command{
 			log.Fatal(errors.Wrap(err, "vipe failed"))
 		}
 
-		enc, err := sillysecrets.Encrypt(new.Bytes(), s.GroupName, groups())
-		if err != nil {
-			log.Fatal(errors.Wrap(err, "could not encrypt data"))
-		}
-
-		s.Group.Secrets[s.SecretName] = enc
-		_groups[s.GroupName] = s.Group
-
-		if err := sillysecrets.Save(file, groups()); err != nil {
-			log.Fatal(errors.Wrap(err, "could not save groups"))
+		s.Value = new.Bytes()
+		if err := saveSecret(s); err != nil {
+			log.Fatal(err)
 		}
 	}}
 
