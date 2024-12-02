@@ -19,28 +19,28 @@ func Test(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	log.Print("ResolveToContains")
-	for n, g := range groups {
-		have := g.Contains
+	// log.Print("ResolveToContains")
+	// for n, g := range groups {
+	// 	have := g.Contains
 
-		want := map[string]set.Set[string]{
-			"admin:alice": set.NewSet(
-				"machine:lazuli",
-			),
-			"machine:lazuli": set.NewSet(
-				"user:bob",
-			),
-			"user:bob": set.NewSet[string](),
-			"user:friend": set.NewSet(
-				"user:bob",
-			),
-		}[n]
+	// 	want := map[string]set.Set[string]{
+	// 		"admin:alice": set.NewSet(
+	// 			"machine:lazuli",
+	// 		),
+	// 		"machine:lazuli": set.NewSet(
+	// 			"user:bob",
+	// 		),
+	// 		"user:bob": set.NewSet[string](),
+	// 		"user:friend": set.NewSet(
+	// 			"user:bob",
+	// 		),
+	// 	}[n]
 
-		log.Printf("  %v: have %v, want %v", n, have, want)
-		if !have.Equal(want) {
-			t.Fatal(have, want)
-		}
-	}
+	// 	log.Printf("  %v: have %v, want %v", n, have, want)
+	// 	if !have.Equal(want) {
+	// 		t.Fatal(have, want)
+	// 	}
+	// }
 
 	log.Print("ResolveToGrants")
 	for n, g := range groups {
@@ -64,35 +64,35 @@ func Test(t *testing.T) {
 		}
 	}
 
-	log.Print("CollectSecrets")
-	for n := range groups {
-		have, err := sillysecrets.CollectSecrets(n, groups)
-		if err != nil {
-			t.Fatal(err)
-		}
+	// log.Print("CollectSecrets")
+	// for n := range groups {
+	// 	have, err := sillysecrets.CollectSecrets(n, groups)
+	// 	if err != nil {
+	// 		t.Fatal(err)
+	// 	}
 
-		want := map[string]set.Set[string]{
-			"admin:alice": set.NewSet(
-				"machine:lazuli.example",
-				"user:bob.password",
-			),
-			"machine:lazuli": set.NewSet(
-				"machine:lazuli.example",
-				"user:bob.password",
-			),
-			"user:bob": set.NewSet(
-				"user:bob.password",
-			),
-			"user:friend": set.NewSet(
-				"user:bob.password",
-			),
-		}[n]
+	// 	want := map[string]set.Set[string]{
+	// 		"admin:alice": set.NewSet(
+	// 			"machine:lazuli.example",
+	// 			"user:bob.password",
+	// 		),
+	// 		"machine:lazuli": set.NewSet(
+	// 			"machine:lazuli.example",
+	// 			"user:bob.password",
+	// 		),
+	// 		"user:bob": set.NewSet(
+	// 			"user:bob.password",
+	// 		),
+	// 		"user:friend": set.NewSet(
+	// 			"user:bob.password",
+	// 		),
+	// 	}[n]
 
-		log.Printf("  %v: have %v, want %v", n, have, want)
-		if !have.Equal(want) {
-			t.Fatal(have, want)
-		}
-	}
+	// 	log.Printf("  %v: have %v, want %v", n, have, want)
+	// 	if !have.Equal(want) {
+	// 		t.Fatal(have, want)
+	// 	}
+	// }
 
 	log.Print("CollectKeys")
 	for n := range groups {

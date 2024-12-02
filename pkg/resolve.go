@@ -25,15 +25,15 @@ func Resolve(
 	return groups, nil
 }
 
-func ResolveToContains(groups Groups) (Groups, error) {
-	return Resolve(groups, "grants",
-		func(g Group) []string {
-			return g.Grants.ToSlice()
-		},
-		func(n string, tg Group) {
-			tg.Contains.Add(n)
-		})
-}
+// func ResolveToContains(groups Groups) (Groups, error) {
+// 	return Resolve(groups, "grants",
+// 		func(g Group) []string {
+// 			return g.Grants.ToSlice()
+// 		},
+// 		func(n string, tg Group) {
+// 			tg.Contains.Add(n)
+// 		})
+// }
 
 func ResolveToGrants(groups Groups) (Groups, error) {
 	return Resolve(groups, "contains",

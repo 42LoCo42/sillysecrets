@@ -24,10 +24,10 @@ func Load(path string) (groups Groups, err error) {
 		groups[n] = g
 	}
 
-	groups, err = ResolveToContains(groups)
-	if err != nil {
-		return nil, err
-	}
+	// groups, err = ResolveToContains(groups)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
 	groups, err = ResolveToGrants(groups)
 	if err != nil {

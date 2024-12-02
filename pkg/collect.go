@@ -1,8 +1,6 @@
 package sillysecrets
 
 import (
-	"fmt"
-
 	set "github.com/deckarep/golang-set/v2"
 	"github.com/go-faster/errors"
 )
@@ -46,17 +44,17 @@ func Collect(
 	return results, nil
 }
 
-func CollectSecrets(name string, groups Groups) (set.Set[string], error) {
-	return Collect(name, groups,
-		func(g Group) []string {
-			return g.Contains.ToSlice()
-		},
-		func(n string, g Group, r set.Set[string]) {
-			for secret := range g.Secrets {
-				r.Add(fmt.Sprintf("%v.%v", n, secret))
-			}
-		})
-}
+// func CollectSecrets(name string, groups Groups) (set.Set[string], error) {
+// 	return Collect(name, groups,
+// 		func(g Group) []string {
+// 			return g.Contains.ToSlice()
+// 		},
+// 		func(n string, g Group, r set.Set[string]) {
+// 			for secret := range g.Secrets {
+// 				r.Add(fmt.Sprintf("%v.%v", n, secret))
+// 			}
+// 		})
+// }
 
 func CollectKeys(name string, groups Groups) (set.Set[string], error) {
 	return Collect(name, groups,
