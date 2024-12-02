@@ -15,7 +15,7 @@
       rec {
         packages.default = pkgs.buildGoModule rec {
           pname = "sillysecrets";
-          version = "1";
+          version = "1.1.0";
           src = ./.;
           vendorHash = "sha256-BdPKXOwWPGQGCvdXVKC7kax86UtUmLjD9wco8Gay2pE=";
 
