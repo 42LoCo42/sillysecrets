@@ -87,7 +87,7 @@ func loadSecret(name string) (s LoadedSecret, err error) {
 		var err error
 		s.Value, err = sillysecrets.Decrypt(enc, ids())
 		if err != nil {
-			return s, errors.Wrap(err, "could not decrypt data")
+			return s, errors.Wrap(err, "could not decrypt secret")
 		}
 	}
 
@@ -97,7 +97,7 @@ func loadSecret(name string) (s LoadedSecret, err error) {
 func saveSecret(s LoadedSecret) error {
 	enc, err := sillysecrets.Encrypt(s.Value, s.GroupName, groups())
 	if err != nil {
-		return errors.Wrap(err, "could not encrypt data")
+		return errors.Wrap(err, "could not encrypt secret")
 	}
 
 	_groups[s.GroupName].Secrets[s.SecretName] = enc
