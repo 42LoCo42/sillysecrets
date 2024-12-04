@@ -19,28 +19,28 @@ func Test(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// log.Print("ResolveToContains")
-	// for n, g := range groups {
-	// 	have := g.Contains
+	log.Print("ResolveToContains")
+	for n, g := range groups {
+		have := g.Contains
 
-	// 	want := map[string]set.Set[string]{
-	// 		"admin:alice": set.NewSet(
-	// 			"machine:lazuli",
-	// 		),
-	// 		"machine:lazuli": set.NewSet(
-	// 			"user:bob",
-	// 		),
-	// 		"user:bob": set.NewSet[string](),
-	// 		"user:friend": set.NewSet(
-	// 			"user:bob",
-	// 		),
-	// 	}[n]
+		want := map[string]set.Set[string]{
+			"admin:alice": set.NewSet(
+				"machine:lazuli",
+			),
+			"machine:lazuli": set.NewSet(
+				"user:bob",
+			),
+			"user:bob": set.NewSet[string](),
+			"user:friend": set.NewSet(
+				"user:bob",
+			),
+		}[n]
 
-	// 	log.Printf("  %v: have %v, want %v", n, have, want)
-	// 	if !have.Equal(want) {
-	// 		t.Fatal(have, want)
-	// 	}
-	// }
+		log.Printf("  %v: have %v, want %v", n, have, want)
+		if !have.Equal(want) {
+			t.Fatal(have, want)
+		}
+	}
 
 	log.Print("ResolveToGrants")
 	for n, g := range groups {
