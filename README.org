@@ -1,5 +1,5 @@
 * sillysecrets
-command name: =sesi= (i swapped the vocals because i'm evil >:3)
+command name: =sesi= (i swapped the vowels because i'm evil >:3)
 
 A group-oriented secret storage tool,
 inspired by [[https://github.com/getsops/sops][sops]] and using [[https://github.com/FiloSottile/age][age]] for encryption.
