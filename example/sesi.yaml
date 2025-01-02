@@ -1,3 +1,5 @@
+# -*- mode: yaml; truncate-lines: t; -*- vi: nowrap
+
 admin:alice:
     key: "age17qe05dgsnsmdqzq98knvwxj9ras6yv0j404wruvlvdk2m536rvvs336lp3"
     contains:
