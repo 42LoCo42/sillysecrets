@@ -1,30 +1,52 @@
 package cmd
 
 import (
-	"fmt"
-	"log"
+	"bytes"
+	"io"
+	"os"
 
+	"github.com/42LoCo42/sillysecrets/pkg"
+	"github.com/go-faster/errors"
 	"github.com/spf13/cobra"
 )
 
 var decryptCmd = &cobra.Command{
-	Use:   "decrypt",
-	Short: "Decrypt the secret specified by <group>.<secret>",
+	Use:     "decrypt <secret>",
+	Aliases: []string{"d"},
+
+	Short: "Decrypt a secret to stdout",
 
 	Args:              cobra.ExactArgs(1),
-	ValidArgsFunction: validSecretArgsFunction,
+	ValidArgsFunction: pkg.CobraValidSecrets,
 
-	Run: func(_ *cobra.Command, args []string) {
-		s, err := loadSecret(args[0])
+	RunE: func(cmd *cobra.Command, args []string) error {
+		name := args[0]
+
+		storage := pkg.Storage{}
+		if err := storage.Load(jsonPath); err != nil {
+			return errors.Wrap(err, "failed to load storage")
+		}
+
+		entry, ok := storage[name]
+		if !ok {
+			return errors.Errorf("secret `%v` isn't created yet!", name)
+		}
+
+		keys := pkg.Keys{}
+		if err := keys.Load(keyPaths); err != nil {
+			return errors.Wrap(err, "failed to load keys")
+		}
+
+		dec, _, err := entry.Decrypt(keys)
 		if err != nil {
-			log.Fatal(err)
+			return errors.Wrap(err, "failed to decrypt entry")
 		}
 
-		if len(s.Value) == 0 {
-			log.Fatalf("secret %v is not defined", s.RawName)
+		if _, err := io.Copy(os.Stdout, bytes.NewReader(dec)); err != nil {
+			return errors.Wrap(err, "failed to output entry")
 		}
 
-		fmt.Print(string(s.Value))
+		return nil
 	},
 }
 

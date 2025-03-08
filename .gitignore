@@ -1,5 +1,7 @@
+*.key
 /.direnv
-/out
+/man
 /result
+/sesi.json
+/sesi.yaml
 /sillysecrets
-/tmp
