@@ -1,28 +1,15 @@
 {
   outputs = { flake-utils, nixpkgs, ... }:
     flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-        setup-internal = pkgs.writeShellApplication {
-          name = "setup-internal";
-          text = let files = "{age,encrypted_keys,parse,tui,wordlist}"; in ''
-            rm -fv internal/${files}.go
-            cp -v ${pkgs.age.src}/cmd/age/${files}.go internal
-            sed -Ei 's|package main|package internal|' internal/*.go
-          '';
-        };
-      in
+      let pkgs = import nixpkgs { inherit system; }; in
       rec {
         packages.default = pkgs.buildGoModule rec {
           pname = "sillysecrets";
-          version = "1.4.0";
+          version = "2.0.0";
           src = ./.;
-          vendorHash = "sha256-BdPKXOwWPGQGCvdXVKC7kax86UtUmLjD9wco8Gay2pE=";
 
-          preBuild = pkgs.lib.getExe setup-internal;
-
-          CGO_ENABLED = "0";
           ldflags = [ "-s" "-w" ];
+          vendorHash = "sha256-yoHj7QE4d6qOMhTni/lkTaAAxBpbfgjdkbZNLu+xiX4=";
 
           nativeBuildInputs = with pkgs; [
             installShellFiles
@@ -35,6 +22,9 @@
             wrapProgram $out/bin/sesi \
               --prefix PATH : ${pkgs.moreutils}/bin
 
+            $out/bin/sesi man
+            installManPage man/*
+
             for i in bash fish zsh; do
               $out/bin/sesi completion $i > sesi.$i
               installShellCompletion sesi.$i
@@ -45,14 +35,14 @@
         };
 
         devShells.default = pkgs.mkShell {
+          shellHook = ''
+            PATH="$PWD:$PATH"
+          '';
+
           inputsFrom = [ packages.default ];
           packages = with pkgs; [
-            age
-            age-plugin-fido2-hmac
             cobra-cli
             delve
-            setup-internal
-            ssh-to-age
           ];
         };
       });

@@ -1,26 +1,76 @@
 * sillysecrets
-command name: =sesi= (i swapped the vowels because i'm evil >:3)
+The silliest secret manager! :3
 
-A group-oriented secret storage tool,
-inspired by [[https://github.com/getsops/sops][sops]] and using [[https://github.com/FiloSottile/age][age]] for encryption.
+A tree-oriented secret storage tool,
+inspired by [[https://github.com/FiloSottile/age][age]] and [[https://github.com/getsops/sops][sops]] and using [[https://doc.libsodium.org/][libsodium]] for encryption.
 
-** Groups
-The primary structure of sillysecrets.
-They are made up of the following fields, all of which are optional:
-- =key=: the public key for which secrets of this groups are encrypted.
-- =contains=: list of group names whose secrets should be encrypted for this group too
-- =grants=: list of group names for which the secrets of this group should be encrypted too
-- =secrets=: the actual set of secrets
+btw the command is named =sesi= because that sounds more silly :3
 
-** Usage
-1. Create a =sesi.yaml= file to store your groups.
-   Take a look at the [[file:example/sesi.yaml][example]] for reference.
-   Do *not* fill in any secrets; they are created using the =edit= subcommand instead.
-2. Run =sesi edit <group>.<secret>= for every secret you want to create.
-   This command will create new, empty secrets or edit their current value.
-   [[https://man.archlinux.org/man/vipe.1][vipe]] from the =moreutils= package will be used as your temporary editor.
-3. If you simply want to read an existing secret, use =sesi decrypt <group>.<secret>=
-4. After changing the grants & contains lists or any group's key,
-   you need to run =sesi rekey= in order to propagate these changes to the secrets.
-   This will attempt to de- and reencrypt every secret
-   while skipping over those it can't decrypt (because of missing identity files).
+** The structure tree
+This is where you'll declare your secrets,
+specify recipients and configure their relationships.
+
+Using YAML, define an arbitrary tree of nodes
+whose names must match the regex =[a-zA-Z0-9-._]=.
+
+Every node can receive the following special properties:
+- =:key=: A public key; shorthand for adding it to...
+- =:keys=: A list of public keys. Having these makes this node eligible for...
+- =:import=: A list of node names whose secrets to import,
+  i.e. make accessible to this node's set of =:keys= too.
+  If you want the inverse, there's also...
+- =:export=: A list of node names to export this node's secrets to,
+  i.e. make them accessible to *that* node's set of =:keys=.
+
+While exports are just aliases,
+(node A exports to B → B imports from A),
+imports operate recursively on their targets:
+If node A imports from B, which itself imports from C or has a child that does so,
+A will effectively import from C too.
+
+This is a powerful mechanism for building hierarchical secret structures, e.g.
+an admin who has access to a machine
+that includes various user and service secrets
+gains access to these secrets too (in order to manage them).
+
+Have a look at the [[file:example.yaml][example]] tree!
+
+** Subcommands
+Listed in rough order of importance together with their single-letter aliases.
+
+*** edit (e)
+Edit or create a secret.
+If stdin is a pipe, it will be read into the secret, overwriting it.
+Otherwise, [[https://man.archlinux.org/man/vipe.1][vipe]] will be started & given the current value of the secret
+(or nothing if it was just created) as input.
+
+*** decrypt (d)
+Decrypt a secret to stdout.
+
+*** check (c)
+Ensure congruency between structure and storage.
+This compares the recipient set of every storage entry
+with the expected key set as derived from the structure tree.
+If there is a mismatch, the entry will be adjusted accordingly
+
+*** rekey (r)
+Regenerate the internal shared key of some secrets.
+
+*** keygen (k)
+Generate some secret key files.
+You can also use basically any file as a key
+(e.g. your SSH keys, which will be loaded by default).
+The actual secret key is derived from the file data using [[https://en.wikipedia.org/wiki/Argon2][Argon2id]].
+
+*** public (p)
+Print public keys corresponding to some secret key files.
+If only a single file is given, print only the public key.
+Otherwise, print the public keys together with their respective path,
+separated by a space.
+
+*** tree (t)
+View the entire tree after validation.
+This is mostly useful for debugging your import & export rules.
+All key sets will be expanded to include their parent's keys, unless the flag -x is given.
+Then, all keys that occur as a =:key= property in a node will be replaced
+by that node's uppercased name, unless the flag -n is given.

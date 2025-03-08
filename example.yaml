@@ -1,0 +1,64 @@
+admin:
+  alice:
+    :key: ADMIN/ALICE # keys are placeholders for didactical purposes!
+    :import:
+      - machine/metis
+
+    # effective visibility:
+    # - machine/metis and children (due to direct import)
+    # - user/uriel and children (due to nested import: alice -> metis -> uriel)
+
+  bob:
+    :key: ADMIN/BOB
+
+    # effective imports (resolved exports):
+    # - svc/synapse/signing-key
+    # - user/uriel/password
+
+machine:
+  metis:
+    :key: MACHINE/METIS
+
+    # effective key set:
+    # - ADMIN/ALICE (due to import from alice)
+    # - MACHINE/METIS (own key)
+
+    :import:
+      - svc/synapse
+      - user/uriel
+
+    # some machine-specific secrets
+    sshHostKey:
+    recoveryKey:
+
+svc:
+  synapse:
+    # effective key set:
+    # - ADMIN/ALICE (due to nested import: alice -> metis -> synapse)
+    # - MACHINE/METIS (due to import from metis)
+
+    secrets:
+    signing-key:
+      :export:
+        - admin/bob
+
+      # effective key set:
+      # - ADMIN/ALICE (from parents)
+      # - ADMIN/BOB (due to export)
+      # - MACHINE/METIS (from parents)
+
+user:
+  uriel:
+    # effective key set:
+    # - ADMIN/ALICE (due to nested import: alice -> metis -> uriel)
+    # - MACHINE/METIS (due to import from metis)
+
+    ssh-ed25519:
+    password:
+      :export:
+        - admin/bob
+
+      # effective key set:
+      # - ADMIN/ALICE (from parents)
+      # - ADMIN/BOB (due to export)
+      # - MACHINE/METIS (from parents)
