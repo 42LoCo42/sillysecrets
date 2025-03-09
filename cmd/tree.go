@@ -14,7 +14,6 @@ import (
 var nonames bool
 var noexpand bool
 
-// treeCmd represents the tree command
 var treeCmd = &cobra.Command{
 	Use:     "tree",
 	Aliases: []string{"t"},

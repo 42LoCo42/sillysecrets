@@ -74,3 +74,8 @@ This is mostly useful for debugging your import & export rules.
 All key sets will be expanded to include their parent's keys, unless the flag -x is given.
 Then, all keys that occur as a =:key= property in a node will be replaced
 by that node's uppercased name, unless the flag -n is given.
+
+*** dump (u)
+Dump all accessible secrets into a folder.
+This exists primarily for the [[https://github.com/42LoCo42/aquaris][Aquaris]] [[https://github.com/42LoCo42/aquaris/blob/main/module/secrets.nix][secrets]] module,
+but maybe you'll find it useful too?

@@ -1,6 +1,7 @@
 *.key
 /.direnv
 /man
+/out
 /result
 /sesi.json
 /sesi.yaml
