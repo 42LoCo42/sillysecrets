@@ -148,3 +148,8 @@ func (this *Node) DoImport(level int, keys *Set, root *Tree) error {
 
 	return nil
 }
+
+// A node is a valid secret if it is a leaf of the tree
+func (node *Node) IsSecret() bool {
+	return len(node.Children) == 0
+}

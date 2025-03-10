@@ -5,7 +5,7 @@
       rec {
         packages.default = pkgs.buildGoModule rec {
           pname = "sillysecrets";
-          version = "2.1.1";
+          version = "2.1.2";
           src = ./.;
 
           ldflags = [ "-s" "-w" ];

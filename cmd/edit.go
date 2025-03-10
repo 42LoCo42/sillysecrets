@@ -37,6 +37,10 @@ Otherwise, vipe(1) will be started and given the current value of the secret
 			return errors.Wrapf(err, "failed to load node `%v`", name)
 		}
 
+		if !node.IsSecret() {
+			return errors.Errorf("the node `%v` has children and is therefore not a valid secret!", name)
+		}
+
 		storage := pkg.Storage{}
 		if err := storage.Load(jsonPath); err != nil {
 			return errors.Wrap(err, "failed to load storage")

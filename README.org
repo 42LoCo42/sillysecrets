@@ -12,6 +12,7 @@ specify recipients and configure their relationships.
 
 Using YAML, define an arbitrary tree of nodes
 whose names must match the regex =[a-zA-Z0-9-._]=.
+All leaf nodes are secrets and can be assigned a value using the [[#edit-e][edit]] subcommand.
 
 Every node can receive the following special properties:
 - =:key=: A public key; shorthand for adding it to...

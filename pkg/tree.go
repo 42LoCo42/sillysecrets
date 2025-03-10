@@ -154,12 +154,14 @@ func (tree *Tree) Validate() error {
 	return nil
 }
 
-// Return all node names in this tree
-func (tree *Tree) AllNames() Set {
+// Return all leaf paths. These elements are valid secrets.
+func (tree *Tree) Leaves() Set {
 	names := Set{mapset.NewSet[string]()}
 
 	tree.Traverse(func(this *Node, root *Tree) error {
-		names.Add(this.Path)
+		if this.IsSecret() {
+			names.Add(this.Path)
+		}
 		return nil
 	})
 

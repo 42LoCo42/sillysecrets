@@ -41,5 +41,5 @@ func CobraValidSecrets(
 		return nil, cobra.ShellCompDirectiveError
 	}
 
-	return tree.AllNames().ToSlice(), cobra.ShellCompDirectiveNoFileComp
+	return tree.Leaves().ToSlice(), cobra.ShellCompDirectiveNoFileComp
 }
