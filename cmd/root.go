@@ -11,7 +11,7 @@ import (
 
 var (
 	rootCmd = &cobra.Command{
-		Use: "sillysecrets",
+		Use: "sesi",
 
 		Short: "The silliest secret manager! :3",
 

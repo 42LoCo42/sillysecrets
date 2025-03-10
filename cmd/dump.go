@@ -13,7 +13,7 @@ import (
 )
 
 var dumpCmd = &cobra.Command{
-	Use:     "dump",
+	Use:     "dump <folder>",
 	Aliases: []string{"u"},
 
 	Short: "Dump all accessible secrets into a folder",

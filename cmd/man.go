@@ -24,6 +24,7 @@ var manCmd = &cobra.Command{
 		}
 
 		hdr := &doc.GenManHeader{
+			Manual: "sillysecrets",
 			Source: "https://github.com/42LoCo42/sillysecrets",
 			Title:  "TITLE",
 		}
