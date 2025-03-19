@@ -44,7 +44,11 @@ The actual secret key is derived from the file data using Argon2id.`,
 				return errors.Wrap(err, "failed to load key file")
 			}
 
-			fmt.Printf("%v %v\n", pkg.Encode(keyPair.Public), path)
+			if len(args) > 1 {
+				fmt.Printf("%v %v\n", pkg.Encode(keyPair.Public), path)
+			} else {
+				fmt.Println(pkg.Encode(keyPair.Public))
+			}
 		}
 
 		return nil
