@@ -73,13 +73,13 @@ If there is a mismatch, the entry will be adjusted accordingly`,
 
 			slog.Warn("fixing incongruency", args...)
 
-			_, shared, err := entry.Decrypt(keys)
+			msg, _, err := entry.Decrypt(keys)
 			if err != nil {
 				return errors.Wrapf(err, "failed to decrypt entry `%v`", name)
 			}
 
-			// only encrypt for new recipients; leave msg/enc unchanged
-			if err := entry.EncryptRcp(shared, want); err != nil {
+			*entry = pkg.Entry{Name: name}
+			if err := entry.Create(msg, want); err != nil {
 				return errors.Wrapf(err, "failed to encrypt entry `%v`", name)
 			}
 		}
