@@ -5,11 +5,11 @@
       rec {
         packages.default = pkgs.buildGoModule rec {
           pname = "sillysecrets";
-          version = "2.1.3";
+          version = "2.1.4";
           src = ./.;
 
           ldflags = [ "-s" "-w" ];
-          vendorHash = "sha256-yoHj7QE4d6qOMhTni/lkTaAAxBpbfgjdkbZNLu+xiX4=";
+          vendorHash = "sha256-XIh0+k/CJ4RrRw9+Lvl/BKPh4TM5g+gY2jnrWwFvfTs=";
 
           nativeBuildInputs = with pkgs; [
             installShellFiles
