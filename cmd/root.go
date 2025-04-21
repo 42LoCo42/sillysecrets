@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"log/slog"
 	"os"
 	"path"
@@ -10,6 +11,17 @@ import (
 	"github.com/mattn/go-isatty"
 	"github.com/spf13/cobra"
 )
+
+var logOutput = os.Stderr
+var logColored = isatty.IsTerminal(logOutput.Fd())
+
+func wrapColor(color, s string) string {
+	if logColored {
+		return fmt.Sprintf("[1;%vm%v[m", color, s)
+	} else {
+		return s
+	}
+}
 
 var (
 	rootCmd = &cobra.Command{
@@ -29,10 +41,9 @@ var (
 				level = slog.LevelDebug
 			}
 
-			w := os.Stderr
-			slog.SetDefault(slog.New(tint.NewHandler(w, &tint.Options{
+			slog.SetDefault(slog.New(tint.NewHandler(logOutput, &tint.Options{
 				Level:   level,
-				NoColor: !isatty.IsTerminal(w.Fd()),
+				NoColor: !logColored,
 			})))
 		},
 	}

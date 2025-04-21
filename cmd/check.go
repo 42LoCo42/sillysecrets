@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"log/slog"
+	"strings"
 
 	"github.com/42LoCo42/sillysecrets/pkg"
 	"github.com/go-faster/errors"
@@ -58,10 +59,19 @@ If there is a mismatch, the entry will be adjusted accordingly`,
 				continue
 			}
 
-			slog.Warn("fixing incongruency",
-				slog.String("entry", name),
-				slog.Any("have", have),
-				slog.Any("want", want))
+			args := []any{slog.String("entry", name)}
+
+			if add := want.Difference(have.Set); !add.IsEmpty() {
+				args = append(args, slog.String("add",
+					wrapColor("32", strings.Join(add.ToSlice(), " "))))
+			}
+
+			if del := have.Difference(want.Set); !del.IsEmpty() {
+				args = append(args, slog.String("del",
+					wrapColor("31", strings.Join(del.ToSlice(), " "))))
+			}
+
+			slog.Warn("fixing incongruency", args...)
 
 			_, shared, err := entry.Decrypt(keys)
 			if err != nil {
