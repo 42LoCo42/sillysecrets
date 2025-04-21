@@ -19,7 +19,7 @@ type Tree map[string]*Node
 
 // Load the tree from a YAML file, validating it
 func (tree *Tree) Load(path string) error {
-	slog.Debug("loading tree from", slog.String("file", path))
+	slog.Info("loading tree from", slog.String("file", path))
 
 	file, err := os.Open(path)
 	if err != nil {

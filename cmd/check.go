@@ -49,7 +49,7 @@ If there is a mismatch, the entry will be adjusted accordingly`,
 				continue
 			}
 
-			slog.Debug("fixing incongruency",
+			slog.Warn("fixing incongruency",
 				slog.String("entry", name),
 				slog.Any("have", have),
 				slog.Any("want", want))

@@ -7,6 +7,8 @@ toolchain go1.23.3
 require (
 	github.com/deckarep/golang-set/v2 v2.7.0
 	github.com/go-faster/errors v0.7.1
+	github.com/lmittmann/tint v1.0.7
+	github.com/mattn/go-isatty v0.0.20
 	github.com/spf13/cobra v1.9.1
 	golang.org/x/crypto v0.36.0
 	gopkg.in/yaml.v3 v3.0.1

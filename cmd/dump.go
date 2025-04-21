@@ -36,13 +36,14 @@ var dumpCmd = &cobra.Command{
 		for _, entry := range storage {
 			msg, _, err := entry.Decrypt(keys)
 			if err != nil {
+				// this entry didn't belong to us, but that is not fatal
 				slog.Debug("failed to decrypt",
 					slog.String("entry", entry.Name),
 					slog.String("error", err.Error()))
 				continue
 			}
 
-			slog.Debug("dumping", slog.String("entry", entry.Name))
+			slog.Info("dumping", slog.String("entry", entry.Name))
 
 			path := pathm.Join(dir, entry.Name)
 			if err := os.MkdirAll(pathm.Dir(path), 0755); err != nil {

@@ -13,7 +13,7 @@ type Storage map[string]*Entry
 
 // Load the storage from a JSON file, optionally creating it
 func (storage *Storage) Load(path string) error {
-	slog.Debug("loading storage from", slog.String("file", path))
+	slog.Info("loading storage from", slog.String("file", path))
 
 	if _, err := os.Stat(path); err != nil {
 		if !errors.Is(err, os.ErrNotExist) {
@@ -50,11 +50,11 @@ func (storage *Storage) Load(path string) error {
 
 // Save the storage to a JSON file, pruning entries with no recipients
 func (storage *Storage) Save(path string) error {
-	slog.Debug("saving storage to", slog.String("file", path))
+	slog.Info("saving storage to", slog.String("file", path))
 
 	for name, entry := range *storage {
 		if len(entry.Rcp) == 0 {
-			slog.Debug("deleting empty entry", slog.String("entry", name))
+			slog.Warn("deleting empty entry", slog.String("entry", name))
 			delete(*storage, name)
 		}
 	}

@@ -6,6 +6,8 @@ import (
 	"path"
 	"strings"
 
+	"github.com/lmittmann/tint"
+	"github.com/mattn/go-isatty"
 	"github.com/spf13/cobra"
 )
 
@@ -22,9 +24,16 @@ var (
 		DisableAutoGenTag: true,
 
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
+			level := slog.LevelInfo
 			if debug {
-				slog.SetLogLoggerLevel(slog.LevelDebug)
+				level = slog.LevelDebug
 			}
+
+			w := os.Stderr
+			slog.SetDefault(slog.New(tint.NewHandler(w, &tint.Options{
+				Level:   level,
+				NoColor: !isatty.IsTerminal(w.Fd()),
+			})))
 		},
 	}
 

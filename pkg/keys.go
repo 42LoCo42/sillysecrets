@@ -22,7 +22,7 @@ func (keys *Keys) Load(paths []string) error {
 		}
 
 		if info.IsDir() {
-			slog.Debug("loading keys from", slog.String("directory", path))
+			slog.Info("loading keys from", slog.String("directory", path))
 
 			entries, err := os.ReadDir(path)
 			if err != nil {
@@ -32,14 +32,12 @@ func (keys *Keys) Load(paths []string) error {
 
 			for _, entry := range entries {
 				file := pathm.Join(path, entry.Name())
-				slog.Debug("loading key from", slog.String("file", file))
 				if err := keys.loadFile(file); err != nil {
 					slog.Debug("failed to read key", slog.String("file", file))
 					continue
 				}
 			}
 		} else {
-			slog.Debug("loading key from", slog.String("file", path))
 			if err := keys.loadFile(path); err != nil {
 				slog.Debug("failed to read key", slog.String("file", path))
 				continue
@@ -68,5 +66,6 @@ func (keys *Keys) loadFile(path string) error {
 	}
 
 	(*keys)[Encode(keyPair.Public)] = keyPair
+	slog.Info("loaded key from", slog.String("file", path))
 	return nil
 }
