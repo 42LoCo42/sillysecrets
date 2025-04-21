@@ -8,6 +8,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var delMissing bool
+
 var checkCmd = &cobra.Command{
 	Use:     "check",
 	Aliases: []string{"c"},
@@ -39,7 +41,14 @@ If there is a mismatch, the entry will be adjusted accordingly`,
 		for name, entry := range storage {
 			node, err := tree.Get(name)
 			if err != nil {
-				return errors.Wrapf(err, "failed to get node `%v`", name)
+				if delMissing {
+					slog.Warn("deleting storage entry with missing node", slog.String("entry", name))
+					delete(storage, name)
+				} else {
+					slog.Warn("storage entry is missing node", slog.String("entry", name))
+				}
+
+				continue
 			}
 
 			have := entry.Available()
@@ -75,4 +84,9 @@ If there is a mismatch, the entry will be adjusted accordingly`,
 
 func init() {
 	rootCmd.AddCommand(checkCmd)
+
+	checkCmd.Flags().BoolVarP(&delMissing,
+		"delete", "D",
+		false,
+		"Delete storage entries with no corresponding tree nodes")
 }
